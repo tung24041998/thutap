@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <form action="/Users/Create" method="post">
+        Tài khoản :
+        <input type="text" name="Username" />
+        <br />
+        Email :
+
+        <input type="text" name="Email" />
+        <br />
+        Địa chỉ :
+
+        <input type="text" name="Address" />
+        <br />
+        Mật khẩu :
+        <input type="password" name="Passwork" />
+        <br />
+        <input type="submit" value="Submit"/>
+        <br />
+        <h4 style="color:red;">@ViewBag.err</h4>
+    </form>
+</div>
+

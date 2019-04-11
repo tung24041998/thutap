@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>EShopV11</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- jQuery library -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/fontawesome.min.js"></script>
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/Content/layout.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="topnav">
+        <p style="padding-top: 25px; padding-left: 30px;"><i class="fa fa-camera-retro fa-3x"></i> Drive</p>
+        <div class="search-container">
+            @if (ViewBag.Username == null)
+            {
+                <a href="/Users/Index"><b>Đăng nhập </b></a>
+                <a href="/Users/Create">Tạo tài khoản</a>
+            }
+            else
+            {
+                <a href="/Users/Logout">Đăng xuất</a>
+            }
+
+            <form action="/Home/Index">
+                <input type="text" placeholder="Search.." name="name">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    @*<div style="width:50%; margin: 0 auto;">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Login
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+    </div>*@
+    @RenderBody()
+    <footer>
+        <p>&copy; @DateTime.Now.Year</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Trainee.Models.ThemeImage>
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("Index", "Home", new { Name = item.Theme })">@item.Theme</a></li>
+}

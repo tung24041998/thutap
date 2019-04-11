@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Trainee.Models.ThemeImage>
+@{
+    ViewBag.Title = "uploadImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div>
+        <form action="/Home/uploadImage" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" value="" />
+            <br />
+            <select class="browser-default custom-select" name="Theme">
+                <option selected><h3>Chọn Chủ Đề </h3></option>
+                @foreach (var item in Model)
+                {
+                    <option>@item.Theme</option>
+                }
+
+            </select>
+
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+    <h5 style="color: orangered">@ViewBag.Message</h5>
+    <h5 style="color: orangered">@ViewBag.ex</h5>
+    <a href="/Home/Index"><i class="fa fa-camera-retro fa-1x"></i>Trang chủ</a>
+</div>

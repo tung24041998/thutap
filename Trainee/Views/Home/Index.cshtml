@@ -1,0 +1,146 @@
+﻿@model PagedList.IPagedList<Trainee.Models.Image>
+@using PagedList.Mvc;
+
+<style>
+
+    .view_product {
+        display: none;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        z-index: 1;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .product_max {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .new_tab_ {
+        width: 800px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .width_img {
+        height: 160px;
+        overflow: hidden;
+    }
+
+        .width_img img {
+            width: 100%;
+        }
+</style>
+<div class="boundary">
+    <div class="content">
+        <div class="menu col-lg-2 col-md-2">
+            <ul>
+
+                <div style="text-align:center;" class="dropdown">
+                    <li><a href="/Home/Index"><b>Tất cả ảnh</b></a></li>
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Chủ Đề
+                        <span class="caret"></span>
+                    </button>
+                    @Html.Action("Header", "Home")
+                </div>
+            </ul>
+        </div>
+
+        <div class="main col-lg-8 col-md-8">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-lg-4 col-md-4 ">
+                    <div class="thumbnail">
+                        <div class="width_img"><img src="@item.Link" class="click_view"></div>
+                        <div class="caption">
+                            <h3>@item.Imagename</h3>
+                            <h5>Tạo bởi : @item.FromImg</h5>
+                            <div><b>Chủ đề : </b>@item.Theme</div>
+                            <form action="/Home/DeleteImage" method="post">
+                                <input type="hidden" value="@item.Idimg" name="id" />
+                                @if (ViewBag.Right == "Admin" || ViewBag.Username == item.FromImg)
+                                {
+                                   <button type="submit" class="btn btn-primary">Xóa</button>
+                                }                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="view_product">
+            <div class="product_max">
+                <div class="new_tab_">
+                    <img src="" class="show_image" />
+                </div>
+            </div>
+        </div>
+        <div class="main col-lg-2 col-md-2">
+            @if (ViewBag.Right == "Admin")
+            {
+                <h3>@ViewBag.Username: (@ViewBag.Right)</h3>
+            }
+            <li><a href="/Home/Index">Trang chủ</a></li>
+            @if (ViewBag.Right == "Admin")
+            {
+                <li><a href="/Home/AddTheme">Thêm Chủ Đề</a></li>
+                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+
+            }
+            @if (ViewBag.Right == "User")
+            {
+                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+            }
+
+        </div>
+            
+
+    </div>
+    <div style="width: 60% ; margin: 0 auto;">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        <br />
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+
+</div>
+<script>
+    $('.click_view').click(function () {
+        var image = $(this).attr('src');
+        $('.view_product').show();
+        $('.show_image').attr('src', image)
+    })
+    $('.view_product').click(function () {
+        $('.view_product').hide()
+    })
+</script>
+
+
+@*<script>
+        //const input = document.querySelector("input[type='file']");
+        //input.addEventListener('change', function (e) {
+        //    var data = new FormData()
+        //    data.append('file', input.files[0])
+
+        //    fetch('/Home/uploadImage', {
+        //        method: 'post',
+        //        body: data
+        //    }).then(
+        //        response => response.json()
+        //    ).then(data => {
+        //        console.log(data)
+        //    }).catch(
+        //        error => console.log(error)
+        //    );
+        //})
+    </script>*@
+

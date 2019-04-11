@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Trainee.Models.ThemeImage>
+@{
+    ViewBag.Title = "AddTheme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <form action="/Home/AddTheme" method="post">
+        Chủ đề :
+        <br />
+        <input type="text" name="Theme" value="" />
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+    <h5 style="color: orangered">@ViewBag.ex</h5>
+    <h5 style="color: orangered">@ViewBag.Mess</h5>
+    <a href="/Home/Index"><i class="fa fa-camera-retro fa-1x"></i>Trang chủ</a>
+</div>
+
