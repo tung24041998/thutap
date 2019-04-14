@@ -4,7 +4,7 @@
     <title>EShopV11</title>
     <!-- Latest compiled and minified CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
+    <script src="~/Scripts/Trainee.js"></script>
     <!-- jQuery library -->
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -14,7 +14,13 @@
     <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
     <link href="~/Content/layout.css" rel="stylesheet" />
 </head>
+<style>
+    a:hover {
+        color: #819FF7;
+    }
+</style>
 <body>
+
     <div class="topnav">
         <p style="padding-top: 25px; padding-left: 30px;"><i class="fa fa-camera-retro fa-3x"></i> Drive</p>
         <div class="search-container">
@@ -26,6 +32,8 @@
             else
             {
                 <a href="/Users/Logout">Đăng xuất</a>
+                <br />
+                <font face="Comic sans MS" size="3" color="#58ACFA">@ViewBag.Username: (@ViewBag.Right)</font><br />
             }
 
             <form action="/Home/Index">

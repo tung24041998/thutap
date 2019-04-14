@@ -20,18 +20,29 @@ namespace Trainee.Controllers
         //    return View(model);
         //}
         //[HttpPost
-        public ActionResult Index(String name, int page = 1, int pageSize = 6)
+        public ActionResult Index(String name, int page = 1, int pageSize = 9)
         {
             ViewBag.Right = Session["Right"];
             ViewBag.Username = Session["Username"];
+            
             if (name == null)
-            {
+            {               
                 var model = DAO.ListAllPaping(page, pageSize);
                 return View(model);
             }
             else
             {
-                return View(db_Trainee.Images.Where(x => x.Theme == name).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize));
+                //var nu = db_Trainee.Images.FirstOrDefault(x=>x.Theme == name);
+                //if(nu == null)
+                //{
+                //    ViewBag.nu = "Không có ảnh nào !";
+                //    return View(db_Trainee.Images.Where(x => x.Theme.Contains(name)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize)); ;
+                //}
+                //else
+                //{
+                    return View(db_Trainee.Images.Where(x => x.Theme.Contains(name)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize));
+                //}
+                
             }
         }
         public ActionResult Header()
@@ -76,34 +87,43 @@ namespace Trainee.Controllers
         [HttpPost]
         public ActionResult uploadImage(HttpPostedFileBase file, Image image)
         {
-            if (file != null && file.ContentLength > 0)
+            if (ModelState.IsValid)
             {
-                string path = Path.Combine(Server.MapPath("~/Content/Image"),
-                                           Path.GetFileName(file.FileName));
+                if (file != null && file.ContentLength > 0)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Content/Image"),
+                                               Path.GetFileName(file.FileName));
 
-                file.SaveAs(path);
-                if (image.Theme == null)
-                {
-                    ViewBag.ex = "Bạn chưa nhập chủ đề !";
-                    return View();
-                }
-                else
-                {
+
+                    //if (image.Theme == null || image.Link == null)
+                    //{
+                    //    ViewBag.ex = "Vui lòng nhập đầy đủ !";
+                    //    return View();
+                    //}
+                    //else
+                    //{
+                    file.SaveAs(path);
                     image.Link = "/Content/Image/" + file.FileName;
                     image.Imagename = file.FileName;
                     ViewBag.name = Session["Username"];
                     image.FromImg = ViewBag.name;
                     db_Trainee.Images.Add(image);
-                    db_Trainee.SaveChanges();
-                    ViewBag.Message = "Tải thành công !";
+                    db_Trainee.SaveChanges();   
                     return RedirectToAction("Index");
+                    //}
+                }
+                else
+                {
+                    ViewBag.Message = "Bạn chưa chọn ảnh !";
+                    return View();
                 }
             }
             else
             {
-                ViewBag.Message = "Bạn chưa chọn ảnh !";
+                ViewBag.Message = "Vui lòng nhập đầy đủ !";
                 return View();
             }
+            
         }
         public ActionResult DeleteImage(int? id)
         {

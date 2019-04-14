@@ -69,5 +69,17 @@ namespace Trainee.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult User()
+        {
+            return View(db_Trainee.Users.Where(x=>x.right == "User"));
+        }
+        public ActionResult Delete(int? id)
+        {
+            var user = db_Trainee.Users.FirstOrDefault(x => x.Id == id);    
+            db_Trainee.Users.Remove(user);
+            db_Trainee.SaveChanges();
+            return RedirectToAction("User","Users");
+        }
     }
 }
