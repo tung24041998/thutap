@@ -141,6 +141,22 @@ namespace Trainee.Controllers
             }
 
         }
+        public ActionResult Theme()
+        {
+            return View(db_Trainee.ThemeImages);
+        }
+        public ActionResult DeleteTheme(String theme)
+        {
+            var themetest = db_Trainee.ThemeImages.FirstOrDefault(x => x.Theme == theme);
+            if(themetest != null)
+            {
+                db_Trainee.ThemeImages.Remove(themetest);
+                db_Trainee.SaveChanges();
+                return RedirectToAction("Theme");
+            }
+            return View();
+
+        }
 
     }
 }

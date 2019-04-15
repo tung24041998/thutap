@@ -13,6 +13,15 @@
     <script src="~/Scripts/fontawesome.min.js"></script>
     <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
     <link href="~/Content/layout.css" rel="stylesheet" />
+    <script>
+        $(Document).ready(function () {
+            $('#search').mouseover(function () {
+                $('#divhelp').fadeIn(0);
+            }).mouseout(function () {
+                $('#divhelp').fadeOut(5);
+            });
+        });
+    </script>
 </head>
 <style>
     a:hover {
@@ -31,28 +40,30 @@
             }
             else
             {
-                <a href="/Users/Logout">Đăng xuất</a>
+                <a href="/Users/Logout" id="dx">Đăng xuất</a>
                 <br />
                 <font face="Comic sans MS" size="3" color="#58ACFA">@ViewBag.Username: (@ViewBag.Right)</font><br />
             }
 
             <form action="/Home/Index">
                 <input type="text" placeholder="Search.." name="name">
-                <button type="submit"><i class="fa fa-search"></i></button>
+                <button type="submit" id="search"><i class="fa fa-search"></i><div id="divhelp" style="display:none;"><font face="Comic sans MS" size="1">Tìm kiếm</font></div></button>
             </form>
+            <br />
+            
         </div>
     </div>
     @*<div style="width:50%; margin: 0 auto;">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Login
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
-        </ul>
-    </div>*@
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Login
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>*@
     @RenderBody()
     <footer>
         <p>&copy; @DateTime.Now.Year</p>

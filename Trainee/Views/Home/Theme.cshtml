@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Trainee.Models.ThemeImage>
+
+@{
+    ViewBag.Title = "Theme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Chủ đề</h2>
+    <table class="table">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Theme
+                </td>
+                <td>
+                    @Html.ActionLink("Xóa", "DeleteTheme", new { theme = item.Theme })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <a href="/Home/Index"><i class="fa fa-camera-retro fa-1x"></i>Trang chủ</a>
+</div>

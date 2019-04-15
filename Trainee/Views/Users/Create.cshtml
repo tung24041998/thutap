@@ -6,22 +6,25 @@
 
 <div class="container">
     <form action="/Users/Create" method="post">
-        Tài khoản :
+        <b>Tài khoản :</b>
         <input type="text" name="Username" />
         <br />
-        Email :
+        <b>Email :</b>
 
         <input type="text" name="Email" />
         <br />
-        Địa chỉ :
+        <b>Địa chỉ :</b>
 
         <input type="text" name="Address" />
         <br />
-        Mật khẩu :
+        <b>Mật khẩu :</b>
         <input type="password" name="Passwork" />
         <br />
-        <input type="submit" value="Submit"/>
         <br />
+        <input type="submit" value="Submit" />
+        <a href="/Home/Index">Quay lại</a>
+        <br />
+
         <h4 style="color:red;">@ViewBag.err</h4>
     </form>
 </div>
