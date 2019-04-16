@@ -100,7 +100,10 @@
                                     }
                                 </form>
                             </div>
+
                             <div class="clearfix"></div>
+                            <div>@Html.ActionLink("Tải ảnh", "Download", new { ImageName = item.Imagename.ToString() })</div>
+                            
                         </div>
                     </div>
                 </div>
@@ -122,13 +125,21 @@
                 <li><a href="/Home/AddTheme">Thêm Chủ Đề</a></li>
                 <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
                 <li><a href="/Users/User">User</a></li>
+                <li><a href="/Home/Theme">Theme</a></li>
 
+            }else{
+               if (ViewBag.Right == "User")
+               {
+                   <li><a href="/Home/Index">Trang chủ</a></li>
+                   <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+                }
+                else
+                {
+                   <li><a href="/Home/Index">Trang chủ</a></li>
+                }
             }
-            @if (ViewBag.Right == "User")
-            {
-                <li><a href="/Home/Index">Trang chủ</a></li>
-                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
-            }
+
+
 
         </div>
 

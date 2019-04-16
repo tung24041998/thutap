@@ -24,26 +24,35 @@ namespace Trainee.Controllers
         {
             ViewBag.Right = Session["Right"];
             ViewBag.Username = Session["Username"];
-            
-            if (name == null)
-            {               
-                var model = DAO.ListAllPaping(page, pageSize);
-                return View(model);
+            var namejpg = name + ".jpg";
+            var nameImg = db_Trainee.Images.FirstOrDefault(x=>x.Imagename == namejpg);
+           
+            //if (name == null)
+            //{
+            //    var model = DAO.ListAllPaping(page, pageSize);
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return View(db_Trainee.Images.Where(x => x.Imagename.Contains(name)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize));
+            //}
+            if(nameImg != null)
+            {
+                return View(db_Trainee.Images.Where(x => x.Imagename.Contains(namejpg)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize));
             }
             else
             {
-                //var nu = db_Trainee.Images.FirstOrDefault(x=>x.Theme == name);
-                //if(nu == null)
-                //{
-                //    ViewBag.nu = "Không có ảnh nào !";
-                //    return View(db_Trainee.Images.Where(x => x.Theme.Contains(name)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize)); ;
-                //}
-                //else
-                //{
+                if (name == null)
+                {
+                    var model = DAO.ListAllPaping(page, pageSize);
+                    return View(model);
+                }
+                else
+                {
                     return View(db_Trainee.Images.Where(x => x.Theme.Contains(name)).OrderByDescending(x => x.Idimg).ToPagedList(page, pageSize));
-                //}
-                
+                }
             }
+            
         }
         public ActionResult Header()
         {
@@ -108,7 +117,7 @@ namespace Trainee.Controllers
                     ViewBag.name = Session["Username"];
                     image.FromImg = ViewBag.name;
                     db_Trainee.Images.Add(image);
-                    db_Trainee.SaveChanges();   
+                    db_Trainee.SaveChanges();
                     return RedirectToAction("Index");
                     //}
                 }
@@ -123,7 +132,7 @@ namespace Trainee.Controllers
                 ViewBag.Message = "Vui lòng nhập đầy đủ !";
                 return View();
             }
-            
+
         }
         public ActionResult DeleteImage(int? id)
         {
@@ -148,15 +157,18 @@ namespace Trainee.Controllers
         public ActionResult DeleteTheme(String theme)
         {
             var themetest = db_Trainee.ThemeImages.FirstOrDefault(x => x.Theme == theme);
-            if(themetest != null)
+            if (themetest != null)
             {
                 db_Trainee.ThemeImages.Remove(themetest);
                 db_Trainee.SaveChanges();
                 return RedirectToAction("Theme");
             }
             return View();
-
         }
-
+        public FileResult Download(String ImageName)
+        {
+            var FileVirtualPath = "/Content/Image/" + ImageName;
+            return File(FileVirtualPath, "application/force- dowload", Path.GetFileName(FileVirtualPath));
+        }
     }
 }
