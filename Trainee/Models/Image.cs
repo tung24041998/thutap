@@ -24,6 +24,8 @@ namespace Trainee.Models
         [StringLength(50)]
         public string FromImg { get; set; }
 
+        public bool? censor { get; set; }
+
         public virtual ThemeImage ThemeImage { get; set; }
     }
 }

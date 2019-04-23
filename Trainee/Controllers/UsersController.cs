@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Trainee.Models;
@@ -11,6 +13,10 @@ namespace Trainee.Controllers
     {
         db_Trainee db_Trainee = new db_Trainee();
         // GET: Users
+        public string mahoa(string pass)
+        {
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(pass.Trim(), "SHA1");
+        }
         public ActionResult Index()
         {
             return View();
@@ -18,8 +24,9 @@ namespace Trainee.Controllers
         [HttpPost]
         public ActionResult Index(User user)
         {
-            var test = db_Trainee.Users.FirstOrDefault(x => x.Username == user.Username && x.Passwork == user.Passwork);
-            if(test != null)
+            var encry = mahoa(user.Passwork);
+            var test = db_Trainee.Users.FirstOrDefault(x => x.Username == user.Username && x.Passwork == encry);
+            if (test != null)
             {
                 Session["Username"] = test.Username;
                 Session["Passwork"] = test.Passwork;
@@ -37,6 +44,7 @@ namespace Trainee.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -46,6 +54,7 @@ namespace Trainee.Controllers
                 var kt = db_Trainee.Users.FirstOrDefault(x => x.Username == user.Username);
                 if (kt == null)
                 {
+                    user.Passwork = mahoa(user.Passwork);
                     db_Trainee.Users.Add(user);
                     db_Trainee.SaveChanges();
                     return RedirectToAction("Index", "Users");
@@ -62,7 +71,7 @@ namespace Trainee.Controllers
                 return View();
             }
 
-           
+
         }
         public ActionResult Logout()
         {
@@ -72,14 +81,21 @@ namespace Trainee.Controllers
 
         public ActionResult User()
         {
-            return View(db_Trainee.Users.Where(x=>x.right == "User"));
+            if (Session["Username"] != null)
+            {
+                return View(db_Trainee.Users.Where(x => x.right == "User"));
+            }
+            else
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
         public ActionResult Delete(int? id)
         {
-            var user = db_Trainee.Users.FirstOrDefault(x => x.Id == id);    
+            var user = db_Trainee.Users.FirstOrDefault(x => x.Id == id);
             db_Trainee.Users.Remove(user);
             db_Trainee.SaveChanges();
-            return RedirectToAction("User","Users");
+            return RedirectToAction("User", "Users");
         }
     }
 }

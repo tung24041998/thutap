@@ -3,29 +3,157 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-<div class="container">
-    <form action="/Users/Create" method="post">
-        <b>Tài khoản :</b>
-        <input type="text" name="Username" />
-        <br />
-        <b>Email :</b>
+    /* Full-width input fields */
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
 
-        <input type="text" name="Email" />
-        <br />
-        <b>Địa chỉ :</b>
+    /* Set a style for all buttons */
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
 
-        <input type="text" name="Address" />
-        <br />
-        <b>Mật khẩu :</b>
-        <input type="password" name="Passwork" />
-        <br />
-        <br />
-        <input type="submit" value="Submit" />
-        <a href="/Home/Index">Quay lại</a>
-        <br />
+        button:hover {
+            opacity: 0.8;
+        }
 
-        <h4 style="color:red;">@ViewBag.err</h4>
-    </form>
-</div>
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+        position: relative;
+    }
+
+    img.avatar {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 88%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+</style>
+
+<form class="container" action="/Users/Create" method="post">
+    <h3 style="color: #8181F7; padding: 20px;">Tạo tài khoản của bạn !</h3>
+
+    <div class="container">
+        <label for="uname"><b>Tài khoản </b></label>
+        <input type="text" placeholder="Enter Username" name="Username" required>
+
+        <label for="uname"><b>Email</b></label>
+        <input type="text" placeholder="Enter Username" name="Email" required>
+
+        <label for="uname"><b>Địa chỉ</b></label>
+        <input type="text" placeholder="Enter Username" name="Address" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="Passwork" required>
+
+        <button type="submit">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <a href="/Home/Index"><i class="fa fa-camera-retro fa-1x"></i>Trang chủ</a>
+    </div>
+    <h3 style="color:orangered">@ViewBag.err</h3>
+</form>
+    @*</form>
+        <div class="container">
+            <form action="/Users/Create" method="post">
+                <b>Tài khoản :</b>
+                <input type="text" name="Username" />
+                <br />
+                <b>Email :</b>
+
+                <input type="text" name="Email" />
+                <br />
+                <b>Địa chỉ :</b>
+
+                <input type="text" name="Address" />
+                <br />
+                <b>Mật khẩu :</b>
+                <input type="password" name="Passwork" />
+                <br />
+                <br />
+                <input type="submit" value="Submit" />
+                <a href="/Home/Index">Quay lại</a>
+                <br />
+
+                <h4 style="color:red;">@ViewBag.err</h4>
+            </form>
+        </div>*@
 

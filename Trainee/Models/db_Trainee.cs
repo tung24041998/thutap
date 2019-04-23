@@ -8,7 +8,7 @@ namespace Trainee.Models
     public partial class db_Trainee : DbContext
     {
         public db_Trainee()
-            : base("name=db_Trainee7")
+            : base("name=db_Trainee8")
         {
         }
 

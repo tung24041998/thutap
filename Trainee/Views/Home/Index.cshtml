@@ -48,6 +48,8 @@
 
         .width_img img {
             width: 100%;
+            height: 100%;
+        
         }
 
     .button {
@@ -64,32 +66,79 @@
     }
 </style>
 <div class="boundary">
-    <div class="content">
-        <div class="menu col-lg-2 col-md-2">
-            <ul>
+    <div class="main">  
+        <ul class="nav navbar-nav">
+            @if (ViewBag.Right == "Admin")
+            {
+                <li><a href="/Home/Index">Trang chủ</a></li>
+                <li><a href="/Home/AddTheme">Thêm Chủ Đề</a></li>
+                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+                <li><a href="/Users/User">User</a></li>
+                <li><a href="/Home/Theme">Theme</a></li>
+                <li><a href="/Home/Censor">Kiểm duyệt</a></li>
 
-                <div style="text-align:center;" class="dropdown">
-                    <li><a href="/Home/Index"><b>Tất cả ảnh</b></a></li>
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Chủ Đề
-                        <span class="caret"></span>
-                    </button>
-                    @Html.Action("Header", "Home")
+            }
+            else
+            {
+                if (ViewBag.Right == "User")
+                {
+                    <li><a href="/Home/Index">Trang chủ</a></li>
+                    <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+                }
+                else
+                {
+                    <li><a href="/Home/Index">Trang chủ</a></li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="content row">
+        <div class="main col-lg-2 col-md-2">
+            @if (ViewBag.Right == "Admin")
+            {
+                <li><a href="/Home/Index">Trang chủ</a></li>
+                <li><a href="/Home/AddTheme">Thêm Chủ Đề</a></li>
+                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+                <li><a href="/Users/User">User</a></li>
+                <li><a href="/Home/Theme">Theme</a></li>
+                <li><a href="/Home/Censor">Kiểm duyệt</a></li>
 
-                </div>
-            </ul>
+            }
+            else
+            {
+                if (ViewBag.Right == "User")
+                {
+                    <li><a href="/Home/Index">Trang chủ</a></li>
+                    <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
+                }
+                else
+                {
+                    <li><a href="/Home/Index">Trang chủ</a></li>
+                }
+            }
         </div>
-        <div class="main col-lg-8 col-md    -8">
+
+        <div class="main col-lg-8 col-md-8">
             @*<div class="container"><h4 style=" color:red;">@ViewBag.nu</h4></div>*@
             @foreach (var item in Model)
             {
 
-                <div class="col-lg-4 col-md-4 ">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="thumbnail">
                         <div class="width_img"><img src="@item.Link" class="click_view"></div>
                         <div class="caption">
                             <h3>@item.Imagename</h3>
                             <div><b>Chủ đề : </b>@item.Theme</div>
+                            <br />
+                            @if (item.censor == true)
+                            {
+                                <b>Đã kiểm duyệt </b>
+                            }
+                            else
+                            {
+                                <b>Chưa kiểm duyệt</b>
+                            }
+                            <br />
                             <div class="floatleft"><h5>Tạo bởi : @item.FromImg</h5></div>
                             <div class="floatleft">
                                 <form action="/Home/DeleteImage" method="post">
@@ -103,13 +152,26 @@
 
                             <div class="clearfix"></div>
                             <div>@Html.ActionLink("Tải ảnh", "Download", new { ImageName = item.Imagename.ToString() })</div>
-                            
+
                         </div>
                     </div>
                 </div>
             }
         </div>
+        <div class="menu col-lg-2 col-md-2">
+            <ul>
 
+                <div style="text-align:center;" class="dropdown">
+                    <li><a href="@Url.Action("Index", new { q = ViewBag.q })"><b>Tất cả ảnh</b></a></li>
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Chủ Đề
+                        <span class="caret"></span>
+                    </button>
+                    @Html.Action("Header", "Home", new { q = ViewBag.q })
+
+                </div>
+            </ul>
+        </div>
         <div class="view_product">
             <div class="product_max">
                 <div class="new_tab_">
@@ -117,31 +179,7 @@
                 </div>
             </div>
         </div>
-        <div class="main col-lg-2 col-md-2">
 
-            @if (ViewBag.Right == "Admin")
-            {
-                <li><a href="/Home/Index">Trang chủ</a></li>
-                <li><a href="/Home/AddTheme">Thêm Chủ Đề</a></li>
-                <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
-                <li><a href="/Users/User">User</a></li>
-                <li><a href="/Home/Theme">Theme</a></li>
-
-            }else{
-               if (ViewBag.Right == "User")
-               {
-                   <li><a href="/Home/Index">Trang chủ</a></li>
-                   <li><a href="/Home/uploadImage">Thêm Ảnh</a></li>
-                }
-                else
-                {
-                   <li><a href="/Home/Index">Trang chủ</a></li>
-                }
-            }
-
-
-
-        </div>
 
 
     </div>

@@ -21,20 +21,23 @@ body {
         text-decoration: none;
         font-size: 17px;
     }
+.new_tab_  img{
+    width:100%;
+}
 
 
 
-    .topnav .search-container {
-        border: 1px solid #FAFAFA;
-        float: right;
-    }
+.topnav .search-container {
+    border: 1px solid #FAFAFA;
+    float: right;
+}
 
-    .topnav input[type=text] {
+    /*.topnav input[type=text] {
         padding: 6px;
         margin-top: 8px;
         font-size: 17px;
         border: none;
-    }
+    }*/
 
     .topnav .search-container button {
         float: right;

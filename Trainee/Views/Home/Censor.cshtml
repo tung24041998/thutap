@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<Trainee.Models.Image>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Censor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kiểm duyệt</h2>
+<div class="container" style="background-color:#f1f1f1">
+    <a href="/Home/Index"><i class="fa fa-camera-retro fa-1x"></i>Trang chủ</a>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Chủ đề
+        </th>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Nguồn
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Theme)
+            </td>
+            <td>
+                <div class="width_img" style="width:50%;"><img src="@item.Link" class="click_view"></div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromImg)
+            </td>
+            <td>
+                <form action="/Home/Censor" method="post">
+                    <input type="hidden" name="Idimg" value="@item.Idimg" />
+                    <button type="submit">Duyệt</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<div style="width: 60% ; margin: 0 auto;">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("Censor", new { name = Request.QueryString["name"], page }))
+</div>
